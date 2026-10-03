@@ -19,6 +19,13 @@ function dlp{
         exit 1
     }
 
+    try{
+        yt-dlp --version | out-null
+    }catch{
+        echo "yt-dlp is not installed on the system, see https://github.com/yt-dlp/yt-dlp/wiki/Installation for installation"
+        exit 1
+    }
+
     $downloadPath = (new-object -ComObject shell.application).namespace("shell:downloads").self.path
 
     yt-dlp "$Url" -f "bestvideo[ext=mp4]+bestaudio[ext=m4a]/best[ext=mp4]/best" --paths "$downloadPath"
